@@ -42,8 +42,7 @@ const Home: NextPage = () => {
             <button onClick={() => signIn("google")}>Sign in with Youtube Account</button>
           }
         </div>
-      
-
+    
       </main>
 
       <footer className={styles.footer}>
