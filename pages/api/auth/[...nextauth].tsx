@@ -2,7 +2,6 @@ import NextAuth, { Account, Session, User } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import { JWT } from "next-auth/jwt"
 
-  
 async function refreshAccessToken(token: JWT) {
     try {
       const url =

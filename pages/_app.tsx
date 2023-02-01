@@ -3,7 +3,6 @@ import { SessionProvider } from "next-auth/react"
 import { AppProps } from 'next/app';
 import { Session } from 'next-auth';
 
-
 function App({ 
   Component, 
   pageProps: {session, ...pageProps}, 
