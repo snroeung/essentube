@@ -9,7 +9,7 @@ const Header: NextPage = () => {
   const { data: session, status } = useSession();
 
   const fetchDisplayName = async () => {
-    if (session) {
+    if (status == "authenticated") {
       const res = await fetch('api/youtube/channel/account');
       const data = await res.json();
       setDisplayImageUrl(data?.items[0]['snippet']['thumbnails']['default']['url']);
@@ -26,7 +26,6 @@ const Header: NextPage = () => {
       className='bg-slate-800'
       fluid={true}
       rounded={true}
-
     >
       <Navbar.Brand href="https://flowbite.com/">
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
@@ -41,11 +40,11 @@ const Header: NextPage = () => {
           label={<Avatar alt="User settings" img={session ? displayImageUrl : "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"} rounded={true} />}
         >
           <Dropdown.Header>
-            <span className="block text-sm">
+            <span className="block text-sm text-white">
               {displayName}
             </span>
           </Dropdown.Header>
-          <Dropdown.Item>
+          <Dropdown.Item className='text-white'>
             {
               session ? <button onClick={() => signOut()}>Sign Out</button> :
                 <button onClick={() => signIn("google")}>Sign In</button>
