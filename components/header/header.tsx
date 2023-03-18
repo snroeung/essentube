@@ -21,7 +21,7 @@ const Header: NextPage = () => {
     fetchDisplayName();
   }, [session]);
 
-  return (
+  return (  
     <Navbar
       className='bg-slate-800'
       fluid={true}
