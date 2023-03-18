@@ -4,7 +4,8 @@ import { AppProps } from 'next/app';
 import { Session } from 'next-auth';
 import { ReactElement, ReactNode } from 'react';
 import { NextPage } from 'next';
-import Header from '../components/header/header';
+import Header from '../components/layout/header';
+import Footer from '../components/layout/footer';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -26,6 +27,7 @@ function App({
         <>
         <Header/>
         <Component {...pageProps} />
+        <Footer/>
       </>
       )
     }
