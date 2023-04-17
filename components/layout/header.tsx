@@ -1,56 +1,42 @@
-import { Avatar, Dropdown, Navbar } from 'flowbite-react';
+import { Avatar, Button, Dropdown, Navbar } from 'flowbite-react';
 import type { NextPage } from 'next'
-import { signIn, signOut, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import SearchBar from './searchbar';
 
 const Header: NextPage = () => {
-  const [displayName, setDisplayName] = useState(" ");
-  const [displayImageUrl, setDisplayImageUrl] = useState(" ");
-  const { data: session, status } = useSession();
+  const [displayImageUrl, setDisplayImageUrl] = useState("");
+  const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
 
-  const fetchDisplayName = async () => {
-    if (status == "authenticated") {
-      const res = await fetch('api/youtube/channel/account');
-      const data = await res.json();
-      setDisplayImageUrl(data?.items[0]['snippet']['thumbnails']['default']['url']);
-      setDisplayName(data?.items[0]['snippet']['title'])
-    }
+  const toggleSearchBarVisible = () => {
+    setIsSearchBarVisible(!isSearchBarVisible);
   }
 
   useEffect(() => {
-    fetchDisplayName();
-  }, [session]);
+    const storedDisplayImageUrl: string = localStorage.getItem("userDisplayImageUrl") || "";
+    setDisplayImageUrl(storedDisplayImageUrl);
+  }, [displayImageUrl]);
 
-  return (  
+  return (
     <Navbar
-      className='bg-slate-800'
+      className='bg-slate-800 sticky top-0'
       fluid={true}
       rounded={true}
     >
-      <Navbar.Brand href="https://flowbite.com/">
+      <Navbar.Brand href="/">
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           Essentube
         </span>
       </Navbar.Brand>
-      <div className="flex md:order-2">
-        <Dropdown
-          className='bg-slate-800 text-white'
-          arrowIcon={false}
-          inline={true}
-          label={<Avatar alt="User settings" img={session ? displayImageUrl : "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"} rounded={true} />}
-        >
-          <Dropdown.Header>
-            <span className="block text-sm text-white">
-              {displayName}
-            </span>
-          </Dropdown.Header>
-          <Dropdown.Item className='text-white'>
-            {
-              session ? <button onClick={() => signOut()}>Sign Out</button> :
-                <button onClick={() => signIn("google")}>Sign In</button>
-            }
-          </Dropdown.Item>
-        </Dropdown>
+      <div className="flex md:order-2 items-center">
+        {isSearchBarVisible ? <SearchBar/> : null}
+        <Button className="boarder-none cursor-pointer appearance-none bg-inherit p-0" onClick={toggleSearchBarVisible}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+        </Button>
+        <Button href="/settings" className="boarder-none cursor-pointer appearance-none bg-inherit p-0">
+          <Avatar alt="User avatar" img={displayImageUrl} rounded={true} />
+        </Button>
       </div>
     </Navbar>
   );
