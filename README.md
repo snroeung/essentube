@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Environments
 Staging is used when a feature branch is merged into the branch `staging`
-[staging-essentube.vercel.app](https:staging-essentube.vercel.app)
+[staging-essentube.vercel.app](https://staging-essentube.vercel.app)
 
 Production is not used at this point!!!!!!!!!!!!!!! - please don't merge anything into the `main` branch
 
