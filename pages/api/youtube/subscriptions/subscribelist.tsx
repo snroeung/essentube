@@ -18,7 +18,7 @@ export default async function handler(
 
     if (req.method === "GET") {
         try {    
-            const data = await fetch(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&mine=true&key=${apiKey}`, {
+            const data = await fetch(`https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&maxResults=50&mine=true&key=${apiKey}`, {
             headers: {
             Accept: 'application.json',
             Authorization: `Bearer ${accessToken}`
