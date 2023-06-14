@@ -9,19 +9,18 @@ const Settings: NextPage = () => {
   const [displayName, setDisplayName] = useState("");
   const [displayImageUrl, setDisplayImageUrl] = useState("https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg");
 
-  const fetchDisplayData = async () => {
-    const res = await fetch(`api/youtube/channel/account`);
-    const data = await res.json();
-
-    if (!data.error) {
-      setDisplayName(data?.items[0]['snippet']['title']);
-      setDisplayImageUrl(data?.items[0]['snippet']['thumbnails']['default']['url']);
-    }
-
-    localStorage.setItem("userDisplayImageUrl", displayImageUrl);
-  }
-
   useEffect(() => {
+    const fetchDisplayData = async () => {
+      const res = await fetch(`api/youtube/channel/account`);
+      const data = await res.json();
+  
+      if (!data.error) {
+        setDisplayName(data?.items[0]['snippet']['title']);
+        setDisplayImageUrl(data?.items[0]['snippet']['thumbnails']['default']['url']);
+      }
+  
+      localStorage.setItem("userDisplayImageUrl", displayImageUrl);
+    }
     fetchDisplayData();
   }, [displayName, displayImageUrl]);
 
