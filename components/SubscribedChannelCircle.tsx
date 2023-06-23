@@ -6,7 +6,7 @@ const SubscribedChannelCircle: NextPage<{ channelName: string, profilePictureUrl
     const channelUrl: string = `https://youtube.com/channel/${channelId}`;
     return (
     <Card className="bg-transparent border-none">
-        <div className="flex flex-col items-center pb-10">
+        <div className="flex flex-col items-center">
           <Image
             alt="image"
             className="mb-3 rounded-full shadow-lg"

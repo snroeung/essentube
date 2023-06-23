@@ -1,6 +1,8 @@
 import { NextPage } from "next";
 import SubscribedChannelCircle from "../components/SubscribedChannelCircle";
 import { useEffect, useState } from "react";
+import SubscribedChannels from "./subscribedChannels";
+import { Button } from "flowbite-react";
 
 type SubscribedChannelsData = {
   kind: string;
@@ -80,13 +82,19 @@ const Subscription: NextPage = () => {
         channelId={subscribedChannel.snippet.resourceId.channelId} />
     );
 
+
   return (
     <div>
-      <div className="flex flex-row overflow-x-auto">
-        {subscribedChannelsData &&
-          subscribedChannelsDataItems
-        }
-      </div>
+      <div className="flex flex-row">
+        <div className="flex flex-row overflow-x-auto content-center">
+          {subscribedChannelsData &&
+            subscribedChannelsDataItems
+          }
+        </div>
+        <div className="flex items-center">
+            <Button href="subscribedChannels">View All</Button>
+        </div>
+      </div>  
     </div>
   )
 }
