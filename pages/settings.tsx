@@ -6,27 +6,24 @@ import { useEffect, useState } from "react";
 
 const Settings: NextPage = () => {
   const { data: session, status } = useSession();
-  const [displayName, setDisplayName] = useState("");
-  const [displayImageUrl, setDisplayImageUrl] = useState("https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg");
+  const [displayName, setDisplayName] = useState<string | null>("");
+  const [displayImageUrl, setDisplayImageUrl] = useState<string | string>("https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg");
 
   useEffect(() => {
     const fetchDisplayData = async () => {
       const res = await fetch(`api/youtube/channel/account`);
       const data = await res.json();
-  
+
       if (!data.error) {
         setDisplayName(data?.items[0]['snippet']['title']);
         setDisplayImageUrl(data?.items[0]['snippet']['thumbnails']['default']['url']);
       }
-  
-      localStorage.setItem("userDisplayImageUrl", displayImageUrl);
     }
     fetchDisplayData();
   }, [displayName, displayImageUrl]);
 
   const handleSignOut = () => {
     signOut();
-    localStorage.clear();
   }
 
   return (

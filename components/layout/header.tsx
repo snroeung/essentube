@@ -12,8 +12,15 @@ const Header: NextPage = () => {
   }
 
   useEffect(() => {
-    const storedDisplayImageUrl: string = localStorage.getItem("userDisplayImageUrl") || "";
-    setDisplayImageUrl(storedDisplayImageUrl);
+    const fetchDisplayData = async () => {
+      const res = await fetch(`api/youtube/channel/account`);
+      const data = await res.json();
+  
+      if (!data.error) {
+        setDisplayImageUrl(data?.items[0]['snippet']['thumbnails']['default']['url']);
+        }
+      }
+    fetchDisplayData();
   }, [displayImageUrl]);
 
   return (
