@@ -1,7 +1,7 @@
 import { Avatar, Button, Dropdown, Navbar } from 'flowbite-react';
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react';
-import SearchBar from './SearchBar';
+import SearchBar from './searchbar';
 
 const Header: NextPage = () => {
   const [displayImageUrl, setDisplayImageUrl] = useState("");
