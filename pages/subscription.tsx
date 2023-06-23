@@ -1,65 +1,7 @@
 import { NextPage } from "next";
 import SubscribedChannelCircle from "../components/SubscribedChannelCircle";
 import { useEffect, useState } from "react";
-import SubscribedChannels from "./subscribedChannels";
 import { Button } from "flowbite-react";
-
-type SubscribedChannelsData = {
-  kind: string;
-  etag: string;
-  id: string;
-  snippet: {
-    publishedAt: string;
-    title: string;
-    description: string;
-    resourceId: {
-      kind: string;
-      channelId: string;
-    };
-    channelId: string;
-    thumbnails: {
-      default: {
-        url: string;
-      };
-      medium: {
-        url: string;
-      };
-      high: {
-        url: string;
-      };
-    };
-  };
-  contentDetails: {
-    totalItemCount: number;
-    newItemCount: number;
-    activityType: string;
-  };
-};
-
-type SubscribedChannelData = {
-  snippet: {
-    publishedAt: string;
-    title: string;
-    description: string;
-    resourceId: {
-      kind: string;
-      channelId: string;
-    };
-    channelId: string;
-    thumbnails: {
-      default: {
-        url: string;
-      };
-      medium: {
-        url: string;
-      };
-      high: {
-        url: string;
-      };
-    };
-  };
-  id: string;
-};
 
 const Subscription: NextPage = () => {
   const [subscribedChannelsData, setSubscribedChannelsData] = useState<SubscribedChannelsData[] | null>(null);
@@ -85,14 +27,14 @@ const Subscription: NextPage = () => {
 
   return (
     <div>
-      <div className="flex flex-row">
+      <div className="flex w-screen">
         <div className="flex flex-row overflow-x-auto content-center">
           {subscribedChannelsData &&
             subscribedChannelsDataItems
           }
         </div>
         <div className="flex items-center">
-            <Button href="subscribedChannels">View All</Button>
+            <Button href="subscribedChannels">ALL</Button>
         </div>
       </div>  
     </div>
