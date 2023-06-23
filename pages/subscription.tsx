@@ -1,16 +1,93 @@
 import { NextPage } from "next";
-import styles from '../styles/Home.module.css'
+import SubscribedChannelCircle from "../components/SubscribedChannelCircle";
+import { useEffect, useState } from "react";
+
+type SubscribedChannelsData = {
+  kind: string;
+  etag: string;
+  id: string;
+  snippet: {
+    publishedAt: string;
+    title: string;
+    description: string;
+    resourceId: {
+      kind: string;
+      channelId: string;
+    };
+    channelId: string;
+    thumbnails: {
+      default: {
+        url: string;
+      };
+      medium: {
+        url: string;
+      };
+      high: {
+        url: string;
+      };
+    };
+  };
+  contentDetails: {
+    totalItemCount: number;
+    newItemCount: number;
+    activityType: string;
+  };
+};
+
+type SubscribedChannelData = {
+  snippet: {
+    publishedAt: string;
+    title: string;
+    description: string;
+    resourceId: {
+      kind: string;
+      channelId: string;
+    };
+    channelId: string;
+    thumbnails: {
+      default: {
+        url: string;
+      };
+      medium: {
+        url: string;
+      };
+      high: {
+        url: string;
+      };
+    };
+  };
+  id: string;
+};
 
 const Subscription: NextPage = () => {
-    return (
-        <div>
-        <main className={styles.main}>
-        <h1 className={styles.title}>
-          Subscription
-        </h1>
-      </main>
+  const [subscribedChannelsData, setSubscribedChannelsData] = useState<SubscribedChannelsData[] | null>(null);
+
+  useEffect(() => {
+    const fetchSubcribedChannelsData = async () => {
+      const res = await fetch(`api/youtube/subscriptions/topSubscribedChannels`);
+      const data = await res.json();
+
+      setSubscribedChannelsData(data?.items);
+    }
+    fetchSubcribedChannelsData();
+  }, []);
+
+    const subscribedChannelsDataItems = subscribedChannelsData?.map((subscribedChannel: SubscribedChannelData) =>
+      <SubscribedChannelCircle
+        channelName={subscribedChannel.snippet.title}
+        profilePictureUrl={subscribedChannel.snippet.thumbnails.default.url}
+        channelId={subscribedChannel.snippet.resourceId.channelId} />
+    );
+
+  return (
+    <div>
+      <div className="flex flex-row overflow-x-auto">
+        {subscribedChannelsData &&
+          subscribedChannelsDataItems
+        }
+      </div>
     </div>
-    )
+  )
 }
 
 export default Subscription
