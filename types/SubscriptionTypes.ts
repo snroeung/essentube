@@ -1,4 +1,4 @@
-type SubscribedChannelsData = {
+export type SubscribedChannelsData = {
     kind: string;
     etag: string;
     id: string;
@@ -30,7 +30,7 @@ type SubscribedChannelsData = {
     };
   };
   
-  type SubscribedChannelData = {
+ export type SubscribedChannelData = {
     snippet: {
       publishedAt: string;
       title: string;

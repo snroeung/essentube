@@ -35,7 +35,7 @@ export default async function handler(
             let nextPageToken = null;
 
             do {
-                const data = await fetch(`https://youtube.googleapis.com/youtube/v3/subscriptions?part=contentDetails&part=snippet&mine=true&maxResults=${maxResults}&key=${apiKey}${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`, {
+                const data: Response =  await fetch(`https://youtube.googleapis.com/youtube/v3/subscriptions?part=contentDetails&part=snippet&mine=true&maxResults=${maxResults}&key=${apiKey}${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`, {
                 headers: {
                 Accept: 'application.json',
                 Authorization: `Bearer ${accessToken}`
