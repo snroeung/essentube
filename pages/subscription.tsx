@@ -74,6 +74,7 @@ const Subscription: NextPage = () => {
 
     const subscribedChannelsDataItems = subscribedChannelsData?.map((subscribedChannel: SubscribedChannelData) =>
       <SubscribedChannelCircle
+        key={subscribedChannel.snippet.resourceId.channelId}
         channelName={subscribedChannel.snippet.title}
         profilePictureUrl={subscribedChannel.snippet.thumbnails.default.url}
         channelId={subscribedChannel.snippet.resourceId.channelId} />
