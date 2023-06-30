@@ -18,7 +18,7 @@ export default async function handler(
 
     if (req.method === "GET") {
         try {    
-            const data = await fetch(`https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&maxResults=50&mine=true&key=${apiKey}`, {
+            const data = await fetch(`https://youtube.googleapis.com/youtube/v3/subscriptions?part=contentDetails&part=snippet&mine=true&key=${apiKey}`, {
             headers: {
             Accept: 'application.json',
             Authorization: `Bearer ${accessToken}`
@@ -32,7 +32,6 @@ export default async function handler(
               res.status(500).json({ error: 'Failed to fetch YouTube data' });
             }
           } else {
-            // Handle unsupported request methods
             res.status(405).json({ error: 'Method Not Allowed' });
           }
         };

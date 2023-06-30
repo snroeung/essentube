@@ -1,7 +1,6 @@
 import { Avatar, Button, Dropdown, Navbar } from 'flowbite-react';
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react';
-import SearchBar from './searchbar';
 
 const Header: NextPage = () => {
   const [displayImageUrl, setDisplayImageUrl] = useState("");
@@ -12,8 +11,15 @@ const Header: NextPage = () => {
   }
 
   useEffect(() => {
-    const storedDisplayImageUrl: string = localStorage.getItem("userDisplayImageUrl") || "";
-    setDisplayImageUrl(storedDisplayImageUrl);
+    const fetchDisplayData = async () => {
+      const res = await fetch(`api/youtube/channel/account`);
+      const data = await res.json();
+  
+      if (!data.error) {
+        setDisplayImageUrl(data?.items[0]['snippet']['thumbnails']['default']['url']);
+        }
+      }
+    fetchDisplayData();
   }, [displayImageUrl]);
 
   return (
@@ -28,7 +34,7 @@ const Header: NextPage = () => {
         </span>
       </Navbar.Brand>
       <div className="flex md:order-2 items-center">
-        {isSearchBarVisible ? <SearchBar/> : null}
+        {isSearchBarVisible ? <input type="search" className="text-black rounded-md" placeholder="Search"/> : null}
         <Button className="boarder-none cursor-pointer appearance-none bg-inherit p-0" onClick={toggleSearchBarVisible}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
