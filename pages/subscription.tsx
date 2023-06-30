@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import SubscribedChannelCircle from "../components/SubscribedChannelCircle";
 import { useEffect, useState } from "react";
 import { Button } from "flowbite-react";
+import { SubscribedChannelData, SubscribedChannelsData } from "../types/SubscriptionTypes";
 
 const Subscription: NextPage = () => {
   const [subscribedChannelsData, setSubscribedChannelsData] = useState<SubscribedChannelsData[] | null>(null);
